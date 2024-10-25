@@ -17,9 +17,16 @@ namespace HeroTest.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBrands()
         {
-            var result = await _brandService.GetAllActiveBrandAsync();
+            try
+            {
+                var result = await _brandService.GetAllActiveBrandAsync();
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
     }
 }

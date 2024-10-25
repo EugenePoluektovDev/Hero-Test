@@ -16,28 +16,49 @@ namespace HeroTest.Services
 
         public async Task<IList<HeroDto>> GetAllActiveHeroesAsync()
         {
-            var heroes = await _heroRepository.GetAllActiveHeroesAsync();
+            try
+            {
+                var heroes = await _heroRepository.GetAllActiveHeroesAsync();
 
-            return heroes.Select(hero => new HeroDto(hero)).ToList();
+                return heroes.Select(hero => new HeroDto(hero)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<HeroDto> AddHeroAsync(AddHeroDto addHeroDto)
         {
-            var heroToCreate = new Hero
+            try
             {
-                Name = addHeroDto.Name,
-                Alias = addHeroDto.Alias,
-                BrandId = addHeroDto.BrandId
-            };
+                var heroToCreate = new Hero
+                {
+                    Name = addHeroDto.Name,
+                    Alias = addHeroDto.Alias,
+                    BrandId = addHeroDto.BrandId
+                };
 
-            var createdHero = await _heroRepository.AddHeroAsync(heroToCreate);
+                var createdHero = await _heroRepository.AddHeroAsync(heroToCreate);
 
-            return new HeroDto(createdHero);
+                return new HeroDto(createdHero);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task DeleteHeroAsync(int heroId)
         {
-            await _heroRepository.DeleteHeroAsync(heroId); ;
+            try
+            {
+                await _heroRepository.DeleteHeroAsync(heroId);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

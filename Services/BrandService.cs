@@ -15,9 +15,16 @@ namespace HeroTest.Services
 
         public async Task<IList<BrandDto>> GetAllActiveBrandAsync()
         {
-            var brands = await _brandRepository.GetAllActiveBrandsAsync();
+            try
+            {
+                var brands = await _brandRepository.GetAllActiveBrandsAsync();
 
-            return brands.Select(brand => new BrandDto(brand)).ToList();
-        }
+                return brands.Select(brand => new BrandDto(brand)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        } 
     }
 }

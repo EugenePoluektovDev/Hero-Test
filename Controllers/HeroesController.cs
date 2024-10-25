@@ -19,25 +19,46 @@ public class HeroesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetHeroes()
     {
-        var result = await _heroService.GetAllActiveHeroesAsync();
+        try
+        {
+            var result = await _heroService.GetAllActiveHeroesAsync();
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> AddHeroAsync([FromBody] AddHeroDto addHeroDto)
     {
-        var result = await _heroService.AddHeroAsync(addHeroDto);
+        try
+        {
+            var result = await _heroService.AddHeroAsync(addHeroDto);
 
-        return Ok();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
     }
 
     [HttpDelete("{heroId}")]
     public async Task<IActionResult> DeleteHeroAsync(int heroId)
     {
-        await _heroService.DeleteHeroAsync(heroId);
+        try
+        {
+            await _heroService.DeleteHeroAsync(heroId);
 
-        return Ok();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
     }
 }
 
