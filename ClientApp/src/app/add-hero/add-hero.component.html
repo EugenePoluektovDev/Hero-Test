@@ -1,0 +1,37 @@
+<h2>Create Hero</h2>
+<form [formGroup]="heroForm" (ngSubmit)="addHero()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" required>
+    <div *ngIf="heroForm.get('name')?.errors?.required && submitted">
+      Name is required.
+    </div>
+    <div *ngIf="heroForm.get('name')?.errors?.maxlength && submitted">
+      Name cannot exceed 100 characters.
+    </div>
+  </div>
+
+  <div>
+    <label for="alias">Alias:</label>
+    <input id="price" formControlName="alias" required>
+    <div *ngIf="heroForm.get('alias')?.errors?.required && submitted">
+      Alias is required
+    </div>
+    <div *ngIf="heroForm.get('alias')?.errors?.maxlength && submitted">
+      Alias cannot exceed 50 characters.
+    </div>
+  </div>
+
+  <div>
+    <label for="brandId">Brand:</label>
+    <select id="brandId" formControlName="brandId" required>
+      <option value="">Select a brand</option>
+      <option *ngFor="let brand of brands" [value]="brand.Id">{{ brand.Name }}</option>
+    </select>
+    <div *ngIf="heroForm.get('brandId')?.errors?.required && submitted">
+      Brand is required
+    </div>
+  </div>
+
+  <button type="submit">Create Item</button>
+</form>
